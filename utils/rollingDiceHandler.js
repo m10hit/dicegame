@@ -1,7 +1,12 @@
 const inquirer = require('inquirer');
 const diceRoll = require('../utils/diceRoll');
 
-const rollingDiceHandler = async (player, numberOfPlayers, winningPoint) => {
+const rollingDiceHandler = async (
+  player,
+  numberOfPlayers,
+  winningPoint,
+  winnersList
+) => {
   playerTurn = [
     {
       type: 'list',
@@ -20,12 +25,13 @@ const rollingDiceHandler = async (player, numberOfPlayers, winningPoint) => {
     const pointsEarned = diceRoll();
     player.totalScore += pointsEarned;
     if (player.totalScore >= winningPoint) {
+      console.log(`The number on the dice is ${pointsEarned}`);
       return player;
     }
     if (pointsEarned === 6) {
       console.log(`${player.name} got 6. They get another chance`);
       player.lastPoint = 6;
-      await rollingDiceHandler(player, numberOfPlayers, winningPoint);
+      player = await rollingDiceHandler(player, numberOfPlayers, winningPoint);
     } else if (pointsEarned === 1 && player.lastPoint === 1) {
       player.skip = true;
       console.log(

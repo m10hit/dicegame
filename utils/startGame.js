@@ -8,25 +8,31 @@ const startGame = async (
   winnersList
 ) => {
   for (let player of players) {
-    player = await rollingDiceHandler(player, numberOfPlayers, winningPoint);
-    const combinedPlayerList = playerStanding(winnersList, players);
+    player = await rollingDiceHandler(
+      player,
+      numberOfPlayers,
+      winningPoint,
+      winnersList
+    );
     if (player.totalScore >= winningPoint) {
+      player.rank = winnersList.length + 1;
       winnersList.push(player);
       console.log(
         `Congratulations ${player.name}!!! you have got rank ${player.rank}`
       );
-      const winningPlayerIndex = players.indexOf(player);
-
-      // Remove the winning player from the list of players
-      if (winningPlayerIndex >= -1) {
-        players.splice(winningPlayerIndex, 1);
-      }
     }
   }
+
+  // Filter players if total score is more than winning point
+  players = players.filter(player => player.totalScore < winningPoint);
+
   // Displays player standing
+  playerStanding(winnersList, players);
   if (players.length > 0) {
     numberOfPlayers -= 1;
     await startGame(players, numberOfPlayers, winningPoint, winnersList);
+  } else {
+    process.exit(0);
   }
 };
 

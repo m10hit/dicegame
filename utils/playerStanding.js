@@ -1,21 +1,21 @@
 const playerStanding = (winnersList, players) => {
-  const combinePlayerList = [...winnersList, ...players];
-  combinePlayerList.sort((a, b) => b.totalScore - a.totalScore);
-  //   let rank = winnersList.length + 1;
+  let clonePlayers = [...players];
+  if (players.length) {
+    clonePlayers.sort((a, b) => b.totalScore - a.totalScore);
 
-  if (winnersList.length) {
-    winnersList.sort((a, b) => b.totalScore - a.totalScore);
-  }
-
-  for (let i = 1; i < combinePlayerList.length; i++) {
-    if (
-      combinePlayerList[i].totalScore === combinePlayerList[i - 1].totalScore
-    ) {
-      combinePlayerList[i].rank = combinePlayerList[i - 1].rank;
-    } else {
-      combinePlayerList[i].rank = i + 1;
+    var tieScore = 0;
+    clonePlayers[0].rank = winnersList.length + 1;
+    for (let i = 1; i < clonePlayers.length; i++) {
+      if (clonePlayers[i].totalScore === clonePlayers[i - 1].totalScore) {
+        tieScore++;
+        clonePlayers[i].rank = clonePlayers[i - 1].rank;
+      } else {
+        clonePlayers[i].rank = clonePlayers[i - 1].rank + 1 + tieScore;
+        tieScore = 0;
+      }
     }
   }
+  const combinePlayerList = [...winnersList, ...clonePlayers];
   console.table(combinePlayerList, ['name', 'totalScore', 'rank']);
   return combinePlayerList;
 };
