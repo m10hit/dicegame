@@ -28,6 +28,7 @@ questions = [
  */
 const play = async () => {
   const players = [];
+  const winnersList = []; //to hold the winning players
   try {
     const { numberOfPlayers, winningPoint } = await inquirer.prompt(questions);
     // Validate no. of players and winning point input given by the user
@@ -50,12 +51,12 @@ const play = async () => {
         };
         players.push(playerCreation);
       }
-      console.table(players, ['name', 'score', 'rank']);
+      console.table(players, ['name', 'totalScore', 'rank']);
       console.log('------------------------------------');
       console.log('   The game of dice has started');
       console.log('------------------------------------');
       shufflePlayers(players);
-      startGame(players, numberOfPlayers, winningPoint);
+      startGame(players, numberOfPlayers, winningPoint, winnersList);
     }
   } catch (err) {
     console.error(err);
