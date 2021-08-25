@@ -15,4 +15,7 @@ ends when all players have accumulated at least M points.
 
 # How to Play
 - Run ```npm install``` to install the required packages.
-- Run ```npm run dev``` to play **The Game of Dice**.
+- Run ```npm start``` to play **The Game of Dice**.
+
+# Running Test Cases
+- Run ```npm run test``` to run the test
