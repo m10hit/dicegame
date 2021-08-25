@@ -1,12 +1,7 @@
 const inquirer = require('inquirer');
 const diceRoll = require('../utils/diceRoll');
 
-const rollingDiceHandler = async (
-  player,
-  numberOfPlayers,
-  winningPoint,
-  winnersList
-) => {
+const rollingDiceHandler = async (player, numberOfPlayers, winningPoint) => {
   playerTurn = [
     {
       type: 'list',

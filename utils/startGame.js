@@ -8,12 +8,7 @@ const startGame = async (
   winnersList
 ) => {
   for (let player of players) {
-    player = await rollingDiceHandler(
-      player,
-      numberOfPlayers,
-      winningPoint,
-      winnersList
-    );
+    player = await rollingDiceHandler(player, numberOfPlayers, winningPoint);
     if (player.totalScore >= winningPoint) {
       player.rank = winnersList.length + 1;
       winnersList.push(player);

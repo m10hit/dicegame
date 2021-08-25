@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const inquirer = require('inquirer');
 const validatePlayers = require('./validations/playerValidator');
 const validateWinningPoint = require('./validations/pointValidator');
